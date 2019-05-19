@@ -1,4 +1,4 @@
-#Employee class holds essential information of an employee
+ #Employee class holds essential information of an employee
 class Employee:
 
 	#Each employee has their employee number, name and section
@@ -46,15 +46,17 @@ class Store:
 		#loop through each section
 		for  i in range(len(self.__sections)):
 			#loop through each aisle
-			for  k in range(len(self.__sections[i].get_aisles())):
-				#if it is the correct aisle
-				if self.__sections[i].get_aisles()[k] == aisle:
+			for  j in range(len(self.__sections[i].get_aisles())):
+				
+				#check if aisle is in that section
+				if self.__sections[i].get_aisles()[j][0] <= aisle and aisle <= self.__sections[i].get_aisles()[j][1]:
+					
 					#then check what employee has that section
-					for m in range(len(employees)):
+					for k in range(len(employees)):
 						#if the employee has that section then
-						if employees[m].get_section().get_name() == self.__sections[i].get_name():
+						if employees[k].get_section().get_name() == self.__sections[i].get_name():
 							#display that they have that aisle and increase the counter
-							print(n,".",employees[m].get_name()," is in section ",self.__sections[i].get_name(),sep='')
+							print(n,".",employees[k].get_name()," is in section ",self.__sections[i].get_name(),sep='')
 							n = (n + 1)
 	
 #Section is an area of the store a sales assosciate is responsible for
