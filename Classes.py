@@ -1,29 +1,37 @@
- #Employee class holds essential information of an employee
+from datetime import datetime
+
+#Employee class holds essential information of an employee
 class Employee:
 
 	#Each employee has their employee number, name and section
-	def __init__(self, employee_number, name, section):
+	def __init__(self, employee_number, name, sections):
 		self.__employee_number = employee_number
 		self.__name = name
-		self.__section = section
-		
+		self.__sections = sections
 	def get_employee_number(self):
 		return self.__employee_number
 	
 	def get_name(self):
 		return self.__name
 		
-	def get_section(self):
-		return self.__section
+	def get_sections(self):
+		return self.__sections
 		
-	def set_section(self, section):
-		self.__section = section
+	def get_section(self,num):
+		return self.__sections[num]
+		
+	def set_employee_number(self,num):
+		self.__employee_number = num
+		
+	def set_sections(self, sections):
+		self.__sections = sections
 		
 	#display the employee
 	def print_employee (self):
-		print('Number: ',self.__employee_number())
-		print('Name: ',self.__get_name())
-		print('Section: ', self.__section().get_name())
+		print('Number: ',self.__employee_number,'Name: ',self.__name)
+		for i in range(20):
+			print(self.__sections[i].get_number(),end='')
+		print()
 
 #Store is currently just a list of sections
 #But it seems like it should be an object		
@@ -43,6 +51,22 @@ class Store:
 		#number of employees responsible for the aisle
 		n= 1
 		
+		#get what time it is
+		hour = datetime.now().hour
+		minute = datetime.now().minute
+		
+		#and format time into an index
+		time = hour * 2 - 14
+		if minute > 29:
+			time += 1;
+			
+		#time  = 15#for testing	
+		#print(time)	
+		
+		if time >= 19 or time < 0:
+			print("No one working now")
+			return
+			
 		#loop through each section
 		for  i in range(len(self.__sections)):
 			#loop through each aisle
@@ -53,26 +77,33 @@ class Store:
 					
 					#then check what employee has that section
 					for k in range(len(employees)):
+					
+						
+			
 						#if the employee has that section then
-						if employees[k].get_section().get_name() == self.__sections[i].get_name():
+						if employees[k].get_section(time).get_number() == self.__sections[i].get_number():
+						
 							#display that they have that aisle and increase the counter
 							print(n,".",employees[k].get_name()," is in section ",self.__sections[i].get_name(),sep='')
 							n = (n + 1)
 	
 #Section is an area of the store a sales assosciate is responsible for
 class Section:
-
 	
 	#Each section has a name and what aisles are in that section	
-	def __init__(self, name, ailes):
+	def __init__(self, number, name, ailes):
+		self.__number = number
 		self.__name = name
 		self.__ailes = ailes
-		
+
+	def get_number(self):
+		return self.__number
+	
 	def get_name(self):
 		return self.__name
 		
 	def get_aisles(self):
 		return self.__ailes
-	
 		
-	
+	def get_number(self):
+		return self.__number
