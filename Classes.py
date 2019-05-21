@@ -1,4 +1,7 @@
+#to check the time for what section to look at
 from datetime import datetime
+#to randomly genearate time for testing
+import random
 
 #Employee class holds essential information of an employee
 class Employee:
@@ -29,7 +32,7 @@ class Employee:
 	#display the employee
 	def print_employee (self):
 		print('Number: ',self.__employee_number,'Name: ',self.__name)
-		for i in range(20):
+		for i in range(len(self.__sections)):
 			print(self.__sections[i].get_number(),end='')
 		print()
 
@@ -55,15 +58,19 @@ class Store:
 		hour = datetime.now().hour
 		minute = datetime.now().minute
 		
+		#Test random times
+		#hour = random.randint(0,24)
+		#minute = random.randint(0,60)
+		
 		#and format time into an index
-		time = hour * 2 - 14
+		#print('time = (',hour,' - 7) * 2')
+		time = (hour - 7) * 2
 		if minute > 29:
 			time += 1;
-			
-		#time  = 15#for testing	
-		#print(time)	
 		
-		if time >= 19 or time < 0:
+		#print(hour,":", minute,"=",time)	
+		
+		if time >= 32 or time < 0:
 			print("No one working now")
 			return
 			
@@ -78,8 +85,8 @@ class Store:
 					#then check what employee has that section
 					for k in range(len(employees)):
 					
+						#employees[k].print_employee()
 						
-			
 						#if the employee has that section then
 						if employees[k].get_section(time).get_number() == self.__sections[i].get_number():
 						

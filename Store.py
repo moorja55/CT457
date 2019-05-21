@@ -16,6 +16,7 @@ section_10 = Classes.Section(10,'Kid Zone',[[31,35]])
 section_11 = Classes.Section(11,'Paint and Tools',[[44,54]])
 section_12 = Classes.Section(12,'Patio / BBQ',[[97,101]])
 section_Z = Classes.Section('Z','facing',[[0,0]])
+section_num = Classes.Section('/#','num',[[0,0]])
 
 #Store is currently just a list of sections
 #But it seems like it should be an object

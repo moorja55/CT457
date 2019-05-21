@@ -4,12 +4,35 @@ import xlrd
 import Employees
 import Classes
 import Store
+import os.path
 
 def main():
 
 	
 	#Tell the user how to exit program
 	print("To Exit program enter 'exit'")
+	
+	#loop until done
+	flag = True
+	while flag:
+		#get the user input
+		print()
+		#Ask user what is the name of the file
+		print("What is the name of the file?")
+		user_input = input()
+		file_name = user_input+".xlsm"
+		print(user_input)
+		#check if the user wants to exit
+		if user_input == 'exit':
+			#if so then exit
+			return	
+		
+		elif os.path.isfile(file_name):
+			flag = False
+			
+		#if not a number tell the user
+		else: 
+			print("That's not a name of a file!")	
 	
 	#loop until done
 	flag = True
@@ -39,8 +62,13 @@ def main():
 
 	print("Opening file")
 	# To open Workbook 
-	wb = xlrd.open_workbook(loc) 
-	print("Selecting sheet")
+	try:
+		wb = xlrd.open_workbook(file_name) 
+		print("Selecting sheet")
+	
+	except:
+		print("Ooops!")
+		return
 	#get the sheet of the schedule
 	schedule = wb.sheet_by_index(3)
 	
@@ -66,7 +94,7 @@ def main():
 				working_today[i] = Employees.employee_list[j]
 				some_sections = []
 				#loop through each column
-				for k in range(20):
+				for k in range(Employees.NUM_SECTIONS):
 					#print(schedule.cell_value(i+2, k+2),end='')
 					
 					#loop through each section
@@ -79,9 +107,19 @@ def main():
 							some_sections.append(Store.store_ct457.get_sections()[m])
 							break
 							
+				#Check if all section inputs are correct
+				if len(some_sections) != Employees.NUM_SECTIONS:
+					print("ERROR:",Employees.NUM_SECTIONS - len(some_sections)," invalid input(s) for a section for", working_today[i].get_name())	
+					
 				#add the list to the employee
 				working_today[i].set_sections(some_sections)
+				
+				#working_today[i].print_employee()
 				break
+				
+		#Check if all employee name inputs are correct
+		if working_today[i] == None :
+			print("ERROR: Employee",i+1,"in the list of employees names is not correct.")
 	
 	print("data retrieved")
 	
